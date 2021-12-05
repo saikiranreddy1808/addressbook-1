@@ -1,10 +1,15 @@
 pipeline{
     agent any
+    tools{
+        maven 'mymaven'
+        jdk 'myjava'
+    }
     stages{
         stage("compile"){
             steps{
                 script{
                     echo "Compiling the code"
+                    sh 'mvn compile'
 
                 }
 
@@ -15,10 +20,16 @@ pipeline{
             steps{
                 script{
                     echo "Testing the code"
+                    sh 'mvn test'
 
 
                 }
 
+            }
+            post{
+                always{
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
 
         }
@@ -26,6 +37,7 @@ pipeline{
             steps{
                 script{
                     echo "Packaging the code"
+                    sh 'mvn package'
 
                 }
 
