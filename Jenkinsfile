@@ -50,7 +50,7 @@ pipeline{
                     echo "building the docker image"
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'pswd', usernameVariable: 'user')]) {
                     sh 'sudo docker build -t saikiranreddy1808/java-mvn-privaterepos:$BUILD_NUMBER .'
-                    sh 'sudo docker login -u $user -p $pass'
+                    sh 'sudo docker login -u $user -p $pswd'
                     sh 'sudo docker push saikiranreddy1808/java-mvn-privaterepos:$BUILD_NUMBER'
                  
 }
